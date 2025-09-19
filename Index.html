@@ -1,14 +1,198 @@
-# Initialize git in your project folder
-git init
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chat Dashboard</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-# Add all files to staging
-git add .
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f4f6f9;
+      color: #333;
+    }
 
-# Commit changes
-git commit -m "Initial commit"
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: #1f2937;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
 
-# Link your local repo to GitHub (replace URL with your repo's URL)
-git remote add origin https://github.com/USERNAME/REPO_NAME.git
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-# Push files to GitHub
-git push -u origin main
+    .menu {
+      list-style: none;
+    }
+
+    .menu li {
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .menu li:hover {
+      background: #374151;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 15px;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Chat Area */
+    .chat-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      max-width: 70%;
+      padding: 12px;
+      border-radius: 10px;
+      line-height: 1.4;
+    }
+
+    .user {
+      background: #2563eb;
+      color: #fff;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: #e5e7eb;
+      color: #111;
+      align-self: flex-start;
+      margin-right: auto;
+    }
+
+    /* Input Area */
+    .input-area {
+      display: flex;
+      padding: 15px;
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .input-area button {
+      margin-left: 10px;
+      padding: 12px 20px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .input-area button:hover {
+      background: #1e40af;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>AI Dashboard</h2>
+    <ul class="menu">
+      <li>Home</li>
+      <li>Chat</li>
+      <li>History</li>
+      <li>Settings</li>
+    </ul>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="main">
+    <div class="header">AI Chat Board</div>
+
+    <div class="chat-container" id="chat">
+      <!-- Messages will appear here -->
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatContainer = document.getElementById('chat');
+    const userInput = document.getElementById('userInput');
+
+    function appendMessage(content, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('message', sender);
+      msg.textContent = content;
+      chatContainer.appendChild(msg);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (text === '') return;
+
+      appendMessage(text, 'user');
+      userInput.value = '';
+
+      // Simulate AI response
+      setTimeout(() => {
+        appendMessage("🤖 AI: " + generateReply(text), 'bot');
+      }, 600);
+    }
+
+    function generateReply(input) {
+      // Simple mock AI response
+      const responses = [
+        "That's interesting!",
+        "Tell me more.",
+        "I see, go on.",
+        "Why do you think that?",
+        "Let’s dive deeper into this."
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+  </script>
+</body>
+  </html>
